@@ -1,0 +1,16 @@
+{
+	"USD": {
+		"name":"US Dollar",
+		"numeric_code":840,
+		"default_fraction_digits":2,
+		"decimals":".",
+		"thousands":","
+	},
+	"BRL": {
+		"name":"Brazilian Real",
+		"numeric_code":986,
+		"default_fraction_digits":2,
+		"decimals":",",
+		"thousands":"."
+	}
+}
