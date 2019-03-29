@@ -32,7 +32,8 @@
   },
   "autoload": {
     "psr-4": {
-      "MOCUtils\\Helpers\\": "lib/"
+      "MOCUtils\\Helpers\\": "lib/",
+      "MOCUtils\\Helpers\\Commands\\": "commands/"
     }
   },
   "autoload-dev": {
