@@ -34,7 +34,10 @@
     "psr-4": {
       "MOCUtils\\Helpers\\": "lib/",
       "MOCUtils\\Helpers\\Commands\\": "commands/"
-    }
+    },
+    "files": [
+      "lib/Functions.php"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
