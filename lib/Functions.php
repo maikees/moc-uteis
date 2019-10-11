@@ -478,11 +478,28 @@ if (!function_exists('user')) {
     }
 }
 
+if (!function_exists('convertToHourBr')) {
+    function convertToHourBr($date)
+    {
+        if (!isset($date)) return "";
+        if ($date < 1) return "";
+        return (new Carbon($date))->format("H:i:s");
+    }
+}
+
+if (!function_exists('convertToHourNoMinuteBr')) {
+    function convertToHourNoMinuteBr($date)
+    {
+        if (!isset($date)) return "";
+        if ($date < 1) return "";
+        return (new Carbon($date))->format("H:i");
+    }
+}
+
 if (!function_exists('convertToDateBr')) {
     function convertToDateBr($date)
     {
         if (!isset($date)) return "";
-        if ($date < 1) return "";
         return (new Carbon($date))->format("d/m/Y");
     }
 }
@@ -590,5 +607,3 @@ if (!function_exists('get_time_from_double')) {
         return gmdate("H:i", $double * 60 * 60);
     }
 }
-
-
