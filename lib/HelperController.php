@@ -46,9 +46,11 @@ class HelperController
      */
     public function BackToWith($with)
     {
-        $redirect = redirect()->back()->with($with);
+        if ($this->error->count()) {
+            return redirect()->back()->withErrors($this->error);
+        }
 
-        return $this->verifyErrorToRedirect($redirect);
+        return redirect()->back()->with($with);
     }
 
     public function getObject()
@@ -59,14 +61,5 @@ class HelperController
     public function getErrors()
     {
         return $this->error;
-    }
-
-    private function verifyErrorToRedirect($redirect)
-    {
-        if ($this->error->count()) {
-            return redirect()->back()->withErrors($this->error);
-        }
-
-        return $redirect;
     }
 }
