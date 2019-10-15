@@ -61,7 +61,7 @@ class HelperController
         return $this->error;
     }
 
-    private function redirectWithErros($redirect)
+    private function verifyErrorToRedirect($redirect)
     {
         if ($this->error->count()) {
             return redirect()->back()->withErrors($this->error);
