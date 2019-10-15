@@ -8,7 +8,15 @@ namespace MOCUtils\Helpers;
  */
 class HelperController
 {
+    /**
+     * @var array
+     */
     private $object;
+
+    /**
+     * @var \Illuminate\Support\Collection
+     */
+    private $error;
 
     /**
      * HelperController constructor.
@@ -16,19 +24,15 @@ class HelperController
      */
     public function __construct(\Closure $closure)
     {
-        $erros = collect();
+        $this->error = collect();
 
         $transaction = new Transaction($closure);
 
         if ($transaction->hasError()) {
             $message = $transaction->getError()->getMessage();
 
-            $erros->push($message);
+            $this->error->push($message);
             new SlackException($message);
-        }
-
-        if ($erros->count()) {
-            return redirect()->back()->withErrors($erros);
         }
 
         $this->object = $transaction->getResults();
@@ -42,11 +46,27 @@ class HelperController
      */
     public function BackToWith($with)
     {
-        return redirect()->back()->with($with);
+        $redirect = redirect()->back()->with($with);
+
+        return $this->verifyErrorToRedirect($redirect);
     }
 
     public function getObject()
     {
         return $this->object;
+    }
+
+    public function getErrors()
+    {
+        return $this->error;
+    }
+
+    private function redirectWithErros($redirect)
+    {
+        if ($this->error->count()) {
+            return redirect()->back()->withErrors($this->error);
+        }
+
+        return $redirect;
     }
 }
