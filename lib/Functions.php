@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Models\Auth\Permissao;
-use App\Http\Models\Auth\Usuario;
+use App\Models\Auth\Permissao;
+use App\Models\Auth\Usuario;
 use Carbon\Carbon;
 use MOCUtils\Helpers\Money\Money;
 use MOCUtils\Helpers\Password;
