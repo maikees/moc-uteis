@@ -20,7 +20,7 @@ class SlackException extends \Exception
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(string $message = "", int $code = 0, Throwable $previous = null)
+    public function __construct($message = "", $code = 0, Throwable $previous = null)
     {
         parent::__construct($message, $code, $previous);
 
@@ -28,7 +28,6 @@ class SlackException extends \Exception
 
         $this->options = ['headers' =>
             [
-//                "Content-Type" => "application/json; charset=utf-8",
                 'Accept' => 'application/json',
                 'Authorization' => 'Bearer ' . $this->getToken(),
             ]
@@ -97,7 +96,7 @@ class SlackException extends \Exception
             ],
             [
                 "name" => "channels",
-                "contents" => "app_errors"
+                "contents" => env('SLACK_CHANNEL', "app_errors")
             ]
         ];
 

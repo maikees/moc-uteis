@@ -17,16 +17,6 @@ if (!function_exists('redirect_to')) {
     }
 }
 
-if (!function_exists('csrf_token')) {
-
-    function csrf_token()
-    {
-        $token = CsrfService::generate_token();
-        CsrfService::store_token($token);
-        return $token;
-    }
-}
-
 if (!function_exists('is_selected')) {
 
     function is_selected($value1, $value2)
@@ -352,7 +342,6 @@ if (!function_exists('redirect')) {
 /******************************************************************************
  * Validates
  *****************************************************************************/
-
 if (!function_exists('validate_date')) {
 
     function validate_date($date, $format = 'Y-m-d H:i:s')
