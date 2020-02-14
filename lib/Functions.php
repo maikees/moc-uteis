@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Auth\Permissao;
-use App\Models\Auth\Usuario;
 use Carbon\Carbon;
 use MOCUtils\Helpers\Money\Money;
 use MOCUtils\Helpers\Password;
@@ -22,28 +20,6 @@ if (!function_exists('is_selected')) {
     function is_selected($value1, $value2)
     {
         echo $value1 == $value2 ? 'selected' : '';
-    }
-}
-
-if (!function_exists('attr_check')) {
-
-    function attr_check($generic, $value, $extraValue = '')
-    {
-        $attr = '';
-        if ($generic) {
-            if (is_object($generic)) {
-                $attr = $generic->{$value};
-            }
-            if (is_array($generic)) {
-                $attr = $generic[$value];
-            }
-        }
-
-        if ($extraValue) {
-            return $attr . $extraValue;
-        }
-
-        return $attr;
     }
 }
 
@@ -279,53 +255,6 @@ if (!function_exists('recursive_sort')) {
     }
 }
 
-/******************************************************************************
- * Quick access
- *****************************************************************************/
-if (!function_exists('is_model')) {
-
-    function is_model($value)
-    {
-        return $value instanceof \MocOrm\Support\Model;
-    }
-}
-
-if (!function_exists('is_view')) {
-
-    function is_view($value)
-    {
-        return $value instanceof \QuickCoffee\Render\View;
-    }
-}
-
-if (!function_exists('is_controller')) {
-
-    function is_controller($value)
-    {
-        return $value instanceof \QuickCoffee\Http\Controller;
-    }
-}
-
-if (!function_exists('app')) {
-
-    function app($name = null)
-    {
-        if (is_null($name)) {
-            return Container::instance();
-        } else {
-            return Container::instance()->get($name);
-        }
-    }
-}
-
-if (!function_exists('app_public')) {
-
-    function app_public($path = '')
-    {
-        return app('paths')['public'] . ($path ? DS . $path : '');
-    }
-}
-
 if (!function_exists('redirect')) {
 
     function redirect($url)
@@ -375,9 +304,6 @@ if (!function_exists('dd')) {
     }
 }
 
-/******************************************************************************
- * Money quick access
- *****************************************************************************/
 if (!function_exists('money_format')) {
 
     function money_format($value, $currency = null, $toCurrency = null, $precision = null)
@@ -388,9 +314,6 @@ if (!function_exists('money_format')) {
     }
 }
 
-/******************************************************************************
- * Money quick access
- *****************************************************************************/
 if (!function_exists('moneyFormat')) {
 
     function moneyFormat($value, $currency = null, $toCurrency = null, $precision = null)
@@ -398,6 +321,20 @@ if (!function_exists('moneyFormat')) {
         $currency = $currency ?: 'USD';
 
         return Money::parse($value, $currency)->format($toCurrency, $precision);
+    }
+}
+
+if (!function_exists('moneyToBRL')) {
+    function moneyToBRL($value, $precision = 2)
+    {
+        return Money::parse($value, "USD")->format("BRL", $precision);
+    }
+}
+
+if (!function_exists('moneyToUSD')) {
+    function moneyToUSD($value, $precision = 2)
+    {
+        return Money::parse($value, "USD")->format("BRL", $precision);
     }
 }
 
@@ -411,9 +348,6 @@ if (!function_exists('money_unformat')) {
     }
 }
 
-/**
- * Passwords
- */
 if (!function_exists('password')) {
 
     function password($password, $salt = null)
@@ -422,9 +356,6 @@ if (!function_exists('password')) {
     }
 }
 
-/**
- * Comments
- */
 if (!function_exists('get_comments')) {
     function get_comments($class, $action, $term)
     {
@@ -450,20 +381,6 @@ if (!function_exists('get_comments')) {
         }
 
         return $object;
-    }
-}
-
-if (!function_exists('user')) {
-    function user()
-    {
-        if (request()->session()->has('usuario')) {
-            $user = request()->session()->get('usuario');
-
-            $userDB = Usuario::find($user->id);
-            $userDB->Permissoes = Permissao::getByUsuario($userDB->id);
-
-            return $userDB;
-        } else return null;
     }
 }
 
@@ -537,9 +454,6 @@ if (!function_exists('getExtensao')) {
     }
 }
 
-/**
- * Returns Json
- */
 if (!function_exists('return_json_error')) {
     function return_json($message, $data = [], $error = false)
     {
@@ -548,19 +462,6 @@ if (!function_exists('return_json_error')) {
             "message" => $message,
             "data" => $data
         ]);
-    }
-}
-
-if (!function_exists('hasPermission')) {
-    function hasPermission($permission)
-    {
-        $search = array_filter(user()->Permissoes, function ($value) use ($permission) {
-            if ($permission == $value->nome) {
-                return $value;
-            }
-        });
-
-        return count($search) > 0;
     }
 }
 
@@ -591,6 +492,10 @@ if (!function_exists('alert')) {
 }
 
 if (!function_exists('get_time_from_double')) {
+    /**
+     * @param $double
+     * @return false|string
+     */
     function get_time_from_double($double)
     {
         return gmdate("H:i", $double * 60 * 60);
