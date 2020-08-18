@@ -47,10 +47,20 @@ class HelperController
     public function BackToWith($with)
     {
         if ($this->error->count()) {
-            return redirect()->back()->withErrors($this->error);
+            if (request()->isJson()) {
+                return response()->json($this->error);
+            } else {
+                return redirect()->back()->withErrors($this->error);
+            }
         }
 
-        return redirect()->back()->with($with);
+        if (!$this->error->count()) {
+            if (request()->isJson()) {
+                return response()->json($with);
+            } else {
+                return redirect()->back()->with($with);
+            }
+        }
     }
 
     public function getObject()
