@@ -1,6 +1,8 @@
 <?php
 
 use Carbon\Carbon;
+use MOCSolutions\Auth\Models\Permissao;
+use MOCSolutions\Auth\Models\Usuario;
 use MOCUtils\Helpers\Money\Money;
 use MOCUtils\Helpers\Password;
 
