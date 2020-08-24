@@ -8,6 +8,9 @@ use MOCUtils\Helpers\Password;
 
 const DS = DIRECTORY_SEPARATOR;
 
+/**
+ * @deprecated (Are implements in Laravel Auth Modelule)
+ */
 if (!function_exists('user')) {
     function user()
     {
@@ -19,6 +22,22 @@ if (!function_exists('user')) {
 
             return $userDB;
         } else return null;
+    }
+}
+
+/**
+ * @deprecated (Are implements in Laravel Auth Modelule)
+ */
+if (!function_exists('hasPermission')) {
+    function hasPermission($permission)
+    {
+        $search = array_filter(user()->Permissoes, function ($value) use ($permission) {
+            if ($permission == $value->nome) {
+                return $value;
+            }
+        });
+
+        return count($search) > 0;
     }
 }
 
