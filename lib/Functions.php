@@ -387,8 +387,8 @@ if (!function_exists('get_comments')) {
 if (!function_exists('convertToHourBr')) {
     function convertToHourBr($date)
     {
-        if (!isset($date)) return "";
-        if ($date < 1) return "";
+        if (!isset($date)) return null;
+        if ($date < 1) return null;
         return (new Carbon($date))->format("H:i:s");
     }
 }
@@ -396,8 +396,8 @@ if (!function_exists('convertToHourBr')) {
 if (!function_exists('convertToHourNoMinuteBr')) {
     function convertToHourNoMinuteBr($date)
     {
-        if (!isset($date)) return "";
-        if ($date < 1) return "";
+        if (!isset($date)) return null;
+        if ($date < 1) return null;
         return (new Carbon($date))->format("H:i");
     }
 }
@@ -405,7 +405,7 @@ if (!function_exists('convertToHourNoMinuteBr')) {
 if (!function_exists('convertToDateBr')) {
     function convertToDateBr($date)
     {
-        if (!isset($date)) return "";
+        if (!isset($date)) return null;
         return (new Carbon($date))->format("d/m/Y");
     }
 }
@@ -413,7 +413,7 @@ if (!function_exists('convertToDateBr')) {
 if (!function_exists('convertToDateHourBr')) {
     function convertToDateHourBr($date)
     {
-        if (!isset($date)) return "";
+        if (!isset($date)) return null;
         return (new Carbon($date))->format("d/m/Y H:i:s");
     }
 }
