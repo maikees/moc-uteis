@@ -533,7 +533,9 @@ if (!function_exists('get_time_from_double')) {
      */
     function get_time_from_double($double)
     {
-        return floor($double) . ':' . (($double * 60) % 60);
+        return str_pad(floor($double), 2, STR_PAD_LEFT, '0')
+            . ':' .
+            str_pad(($double * 60) % 60, 2, STR_PAD_LEFT, '0');
     }
 }
 
