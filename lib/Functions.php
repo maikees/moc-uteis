@@ -533,7 +533,7 @@ if (!function_exists('get_time_from_double')) {
      */
     function get_time_from_double($double)
     {
-        return gmdate("H:i", $double * 60 * 60);
+        return floor($double) . ':' . (($double * 60) % 60);
     }
 }
 
@@ -545,8 +545,8 @@ if (!function_exists('get_time_only_from_seconds')) {
      */
     function get_time_only_from_seconds($seconds)
     {
-        $integer = $seconds / 60 / 60;
-        return floor($integer) . ':' . (($integer * 60) % 60);
+        $double = $seconds / 60 / 60;
+        return get_time_from_double($double);
     }
 }
 
