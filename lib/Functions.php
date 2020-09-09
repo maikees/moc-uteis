@@ -369,7 +369,7 @@ if (!function_exists('moneyToBRL')) {
 if (!function_exists('moneyToUSD')) {
     function moneyToUSD($value, $precision = 2)
     {
-        return Money::parse($value, "USD")->format("BRL", $precision);
+        return Money::parse($value, "BRL")->format("USD", $precision);
     }
 }
 
