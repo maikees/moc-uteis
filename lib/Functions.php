@@ -552,20 +552,33 @@ if (!function_exists('get_time_only_from_seconds')) {
     }
 }
 
-if (!function_exists('get_decimal_from_time')) {
+if (!function_exists('get_seconds_from_time')) {
+    /**
+     * @param time $time
+     * @return double $doubleTime
+     */
+    function get_seconds_from_time($time)
+    {
+        $time = preg_replace("/^([\d]{1,2})\:([\d]{2})$/", "00:$1:$2", $time);
+
+        sscanf($time, "%d:%d:%d", $hours, $minutes, $seconds);
+
+        $time_seconds = ($hours * 3600 + $minutes * 60 + $seconds);
+
+        return $time_seconds;
+    }
+}
+
+if (!function_exists('get_double_from_time')) {
     /**
      * @param time $time
      * @return double $doubleTime
      */
     function get_double_from_time($time)
     {
-        $doubleTime = 0;
+        $time_double = get_seconds_from_time($time) / 60 / 60;
 
-        if (preg_match("/^([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/", $time, $matches)) {
-            $doubleTime = ($matches[0] * 60) + ($matches[1]) + ($matches[2] / 60);
-        }
-
-        return $doubleTime;
+        return $time_double;
     }
 }
 
