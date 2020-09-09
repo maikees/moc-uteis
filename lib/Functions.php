@@ -552,3 +552,20 @@ if (!function_exists('get_time_only_from_seconds')) {
     }
 }
 
+if (!function_exists('get_decimal_from_time')) {
+    /**
+     * @param time $time
+     * @return double $doubleTime
+     */
+    function get_double_from_time($time)
+    {
+        $doubleTime = 0;
+
+        if (preg_match("/^([01][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/", $time, $matches)) {
+            $doubleTime = ($matches[0] * 60) + ($matches[1]) + ($matches[2] / 60);
+        }
+
+        return $doubleTime;
+    }
+}
+
