@@ -2,6 +2,8 @@
 
 namespace MOCUtils\Helpers;
 
+use Illuminate\Support\Facades\Redirect;
+
 /**
  * Class HelperController
  * @package MOCUtils\Helpers
@@ -17,6 +19,11 @@ class HelperController
      * @var \Illuminate\Support\Collection
      */
     private $error;
+
+    /**
+     * @var Redirect
+     */
+    private $redirect;
 
     /**
      * HelperController constructor.
@@ -36,6 +43,7 @@ class HelperController
         }
 
         $this->object = $transaction->getResults();
+        $this->redirect = redirect()->back();
 
         return $this;
     }
@@ -50,7 +58,7 @@ class HelperController
             if (request()->isJson()) {
                 return response()->json($this->error);
             } else {
-                return redirect()->back()->withErrors($this->error);
+                return $this->redirect->withErrors($this->error);
             }
         }
 
@@ -58,18 +66,32 @@ class HelperController
             if (request()->isJson()) {
                 return response()->json($with);
             } else {
-                return redirect()->back()->with($with);
+                return $this->redirect->with($with);
             }
         }
     }
 
+    /**
+     * @return array
+     */
     public function getObject()
     {
         return $this->object;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getErrors()
     {
         return $this->error;
+    }
+
+    /**
+     * @param $redirect
+     */
+    public function setRedirect($redirect)
+    {
+        $this->redirect = $redirect;
     }
 }

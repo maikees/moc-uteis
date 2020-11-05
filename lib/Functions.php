@@ -9,7 +9,7 @@ use MOCUtils\Helpers\Password;
 const DS = DIRECTORY_SEPARATOR;
 
 /**
- * @deprecated (Are implements in Laravel Auth Modelule)
+ * @deprecated (Are implements in Laravel Auth Module)
  */
 if (!function_exists('user')) {
     function user()
