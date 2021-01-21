@@ -493,7 +493,8 @@ if (!function_exists('getExtensao')) {
     function getExtensao($fileName)
     {
         //retorna a extensao da imagem
-        return $extensao = strtolower(end(explode('.', $fileName)));
+        $array = explode('.', $fileName);
+        return $extensao = strtolower(end($array));
     }
 }
 
