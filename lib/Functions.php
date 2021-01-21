@@ -457,7 +457,7 @@ if (!function_exists('convertToDateHourEua')) {
     function convertToDateHourEua($date)
     {
         if (!isset($date)) return null;
-        return Carbon::createFromFormat("d/m/Y H:i:s", $date)->toDateString();
+        return Carbon::createFromFormat("d/m/Y H:i:s", $date)->toDateTimeString();
     }
 }
 
