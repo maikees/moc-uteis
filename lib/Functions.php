@@ -14,10 +14,9 @@ const DS = DIRECTORY_SEPARATOR;
 if (!function_exists('user')) {
     function user()
     {
-        if (request()->session()->has('usuario')) {
+        if (request()->session()->has('usuario') || request()->Token) {
             $user = request()->session()->get('usuario');
-
-            $userDB = Usuario::find($user->id);
+            $userDB = request()->Token->Usuario ?? Usuario::find($user->id);
             $userDB->Permissoes = Permissao::getByUsuario($userDB->id);
 
             return $userDB;
