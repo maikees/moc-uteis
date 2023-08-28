@@ -471,19 +471,25 @@ if (!function_exists('convertToDateEua')) {
 if (!function_exists('convertFileSize')) {
     function convertFileSize($size)
     {
-        $tamanho = $size / 1024;
+        $size = $size / 1024;
+        $tamanho = number_format($size, 2, '.', '') . " KB";
 
-        if ($tamanho > 1024) {
-            $tamanho = $tamanho / 1024;
-            $tamanho = number_format($tamanho, 2, '.', '') . " MB";
+        if ($size > 1024) {
+            $size = $size / 1024;
+            $tamanho = number_format($size, 2, '.', '') . " MB";
 
-            if ($tamanho > 1024) {
-                $tamanho = $tamanho / 1024;
-                $tamanho = number_format($tamanho, 2, '.', '') . " GB";
+            if ($size > 1024) {
+                $size = $size / 1024;
+                $tamanho = number_format($size, 2, '.', '') . " GB";
+
+
+                if ($size > 1024) {
+                    $size = $size / 1024;
+                    $tamanho = number_format($size, 2, '.', '') . " TB";
+                }
             }
-        } else {
-            $tamanho = number_format($tamanho, 2, '.', '') . " KB";
         }
+
         return $tamanho;
     }
 }
